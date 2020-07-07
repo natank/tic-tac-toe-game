@@ -1,10 +1,35 @@
-body {
-  color: orange;
+.container {
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: auto;
+  
+  h1 {
+    text-align: center;
+  }
 }
 
-$mainBlue: #ff5572;
+#root {
+  width: 50%;
+}
 
-h1 {
-  color: $mainBlue;
-  font-size: 3rem
+.board {
+  width: 100%;
+  margin: auto;
+  padding-bottom: 100%;
+  position: relative;
+  background-color: black;
+  display: flex;
+  flex-wrap: wrap;
+  height: 0;
+  justify-content: center;
+  align-content: center;
+}
+
+.cell {
+  background-color: red; 
+  display: inline-block;
+  margin: 2%;
+  position: relative
 }
