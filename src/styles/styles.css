@@ -1,0 +1,10 @@
+body {
+  color: orange;
+}
+
+$mainBlue: #ff5572;
+
+h1 {
+  color: $mainBlue;
+  font-size: 3rem
+}

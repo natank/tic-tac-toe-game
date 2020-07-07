@@ -1,0 +1,37 @@
+{
+  "name": "tic-tac-toe-game",
+  "version": "1.0.0",
+  "description": "",
+  "private": true,
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "webpack-dev-server --env.NODE_ENV=development",
+    "build": "webpack --env.NODE_ENV=development"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/natank/tic-tac-toe-game.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/natank/tic-tac-toe-game/issues"
+  },
+  "homepage": "https://github.com/natank/tic-tac-toe-game#readme",
+  "devDependencies": {
+    "autoprefixer": "^9.8.4",
+    "css-loader": "^3.6.0",
+    "html-webpack-plugin": "^4.3.0",
+    "postcss-loader": "^3.0.0",
+    "postcss-nested": "^4.2.2",
+    "postcss-simple-vars": "^5.0.2",
+    "style-loader": "^1.2.1",
+    "webpack": "^4.43.0",
+    "webpack-cli": "^3.3.12",
+    "webpack-dev-server": "^3.11.0"
+  },
+  "dependencies": {
+    "lodash": "^4.17.15"
+  }
+}
