@@ -1,0 +1,37 @@
+.cell {
+  &::after {
+    background-repeat: no-repeat;
+    background-size: cover;
+    content:'';
+    color: $secondary;
+  }
+  &--x {
+    background-color: $bg_x;
+    &::after {
+      background-image: url('../images/cross-white.png');
+    }
+  }
+  &--o {
+    background-color: $bg_o;
+    &::after {
+      background-image: url('../images/circle-white.png');
+    }
+  }
+  &--empty {
+    background-color: $bg-empty
+  }
+  &--sequence {
+    // background-color: yellow;
+    border: 2px solid yellow;
+  }
+}
+
+.board {
+  background-color: black;
+}
+
+.control-panel {
+  a {
+    color: $primary;
+  }
+}

@@ -1,11 +1,6 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
-const postCSSPlugins = [
-  require('postcss-simple-vars'),
-  require('postcss-nested'),
-  require('autoprefixer')
-]
 module.exports = env => {
   console.log(`mode = ${env.NODE_ENV}`)
   return {
@@ -14,6 +9,7 @@ module.exports = env => {
       filename: 'bundled.js',
       path: path.resolve(__dirname, 'src'),
     },
+    devtool: 'sourcemap',
     devServer: {
       before: (app, server) => {
         server._watch('./src/**/*.html')
@@ -27,13 +23,28 @@ module.exports = env => {
     module: {
       rules: [
         {
-          test: /\.css$/i,
-          use: ['style-loader', 'css-loader', { loader: 'postcss-loader', options: { plugins: postCSSPlugins } }]
+          test: /\.scss$/i,
+          use: ['style-loader', 'css-loader', 'sass-loader']
+        },
+        {
+          test: /\.(png|jpg|gif)$/i,
+          use: [
+            {
+              loader: 'url-loader',
+              options: {},
+            },
+          ]
+        },
+        {
+          test: /\.js$/,
+          enforce: 'pre',
+          use: ['source-map-loader'],
         }
+
       ]
     },
     plugins: [new HtmlWebpackPlugin({
-      template: 'src/index.html'
+      template: 'templates/index.html'
     })]
   };
 
