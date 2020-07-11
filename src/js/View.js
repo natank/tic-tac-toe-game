@@ -3,7 +3,9 @@ export function renderTitle() {
   document.getElementById('board').insertAdjacentHTML('beforeend', titleMarkup);
 }
 
-export function renderBoard(arrCells, gameState, onMoveCb) {
+export function renderBoard(gameState, onMoveCb) {
+  let { displayMove, boards } = gameState;
+  let arrCells = boards[displayMove];
   // first remove existing board element from the DOM (if any)
   let existingBoardElement = document.querySelector('.board');
   if (existingBoardElement) existingBoardElement.parentNode.removeChild(existingBoardElement);
@@ -52,8 +54,18 @@ export function renderBoard(arrCells, gameState, onMoveCb) {
   })
 }
 
-export function renderControlPanel({ onNewGame, onChangeBoard, onDeleteLast }) {
+export function renderControlPanel({
+  onNewGame,
+  onChangeBoard,
+  onDeleteLast,
+  onGetRecord,
+  onSaveGame,
+  onUploadGame
+}) {
   document.querySelector('.control-panel--new').addEventListener('click', onNewGame)
   document.querySelector('.control-panel--dimension').addEventListener('click', onChangeBoard)
   document.querySelector('.control-panel--delete-last').addEventListener('click', onDeleteLast)
+  document.querySelector('.control-panel--record').addEventListener('click', onGetRecord)
+  document.querySelector('.control-panel--save').addEventListener('click', onSaveGame)
+  document.querySelector('.control-panel--upload').addEventListener('click', onUploadGame)
 }

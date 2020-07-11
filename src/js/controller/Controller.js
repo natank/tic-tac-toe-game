@@ -1,4 +1,5 @@
 import * as View from '../View';
+import * as Model from '../Model';
 import * as Resources from '../Resouces';
 import checkSequence from './GameLogicController';
 import * as GameState from './GameStateController';
@@ -22,8 +23,10 @@ function onMove(event) {
     event.preventDefault();
     let gameState = GameState.get();
 
-    // duplicate the current board
     let { boards, turn, displayMove } = gameState;
+    displayMove++;
+
+    // duplicate the current board
     let newBoard = Resources.deepCopyObj(boards[boards.length - 1]);
 
     // determine the index of the cell
@@ -35,19 +38,27 @@ function onMove(event) {
     // check if the new board contains a squence of identical cells
     let sequenceFound = checkSequence(newBoard, gameState);
     if (sequenceFound) {
+        // Chagne the gameOngoing state to false
         gameState = GameState.set({ gameOngoing: false });
+        // Update the record if needed
+        let record = localStorage.getItem('record');
+
+        if (!record || record > displayMove) {
+            localStorage.setItem('record', displayMove)
+        }
     }
 
-    // render the boards
-    View.renderBoard(newBoard, gameState, onMove)
 
     // push the board to the collection
     boards.push(newBoard);
     // change turn
     turn = gameState.turn === 'player-x' ? 'player-o' : 'player-x';
-    displayMove++;
+
     // update the state
-    gameState = GameState.set({ boards, turn });
+    gameState = GameState.set({ boards, turn, displayMove });
+
+    // render the boards
+    View.renderBoard(gameState, onMove)
 
     return;
 
@@ -70,7 +81,7 @@ function onDeleteLast() {
 
         let last = boards.length - 1;
         let gameState = GameState.get();
-        View.renderBoard(boards[last], gameState, onMove)
+        View.renderBoard(gameState, onMove)
 
         GameState.set({ boards, displayMove, turn, gameOngoing: true });
     }
@@ -81,21 +92,25 @@ function onGetRecord(event) {
     // Get record button click event
     // Get the value of the record from the local storage
     // display the value of the record on a popup
-
-    alert("onRecordClick")
+    let record = localStorage.getItem('record');
+    if (record) alert(`The record is ${record} moves`);
+    else alert(`Thre\'s no record yet`)
 }
 
 function onSaveGame(event) {
     // save `boards` to the local storage
     event.preventDefault();
-    alert('save game')
-
+    let gameState = GameState.get();
+    Model.saveGame(gameState);
 }
 
 function onUploadGame(event) {
     // Upload the game from local storage
     event.preventDefault();
-    alert('upload game');
+    let gameState = Model.uploadGame();
+    // render the game
+    gameState = GameState.set(gameState);
+    View.renderBoard(gameState, onMove);
 }
 
 function onChangeBoard(event) {
@@ -137,7 +152,7 @@ function initGame() {
     })
 
     // render initial board
-    View.renderBoard(initialBoard, gameState, onMove)
+    View.renderBoard(gameState, onMove)
 }
 
 export default GameController
