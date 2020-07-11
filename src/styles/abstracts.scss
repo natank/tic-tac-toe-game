@@ -2,5 +2,51 @@
 $bg_o: #369ad4;
 $bg_x: #d33754;
 $bg-empty: #a7b3c5;
-$primary: #000;
+$primary: #2e3056;
 $secondary: #fff;
+
+/*Utils*/
+
+.tooltip {
+  position: relative;
+  display: inline-block;
+   
+  .tooltiptext {
+    visibility: hidden;
+    width: 120px;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    padding: 5px 0;
+    border-radius: 6px;
+   
+    
+    position: absolute;
+    z-index: 1;
+    width: 120px;
+    bottom: 100%; /*Top tooltip*/
+    left: 50%;
+    margin-left: -60px; /* Half of the width (120/2 = 60), to center the tooltip */
+
+    &::after {
+      content: " ";
+      position: absolute;
+      top: 100%; /* At the bottom of the tooltip */
+      left: 50%;
+      margin-left: -5px;
+      border-width: 5px;
+      border-style: solid;
+      border-color: black transparent transparent transparent;
+    }
+  }
+  
+  &:hover {
+    .tooltiptext {
+      visibility: visible;
+    }
+  }
+
+
+}
+
+

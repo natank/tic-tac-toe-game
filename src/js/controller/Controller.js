@@ -1,32 +1,37 @@
-import * as View from '../View'
-import checkSequence from './CheckSequenceController'
+import * as View from '../View';
+import * as Resources from '../Resouces';
+import checkSequence from './GameLogicController';
 import * as GameState from './GameStateController';
 
 function GameController() {
-    let gameState = GameState.get();
     View.renderTitle();
     initGame()
     View.renderControlPanel({
-        gameState,
         onMove,
         onNewGame,
         onDeleteLast,
         onGetRecord,
         onSaveGame,
-        onUploadGame
+        onUploadGame,
+        onChangeBoard
+
     })
 }
 
 function onMove(event) {
     event.preventDefault();
-    // duplicate the current board
     let gameState = GameState.get();
-    let { boards, turn } = gameState;
-    let newBoard = boards[boards.length - 1].map(cell => cell);
+
+    // duplicate the current board
+    let { boards, turn, displayMove } = gameState;
+    let newBoard = Resources.deepCopyObj(boards[boards.length - 1]);
+
     // determine the index of the cell
     let index = event.target.getAttribute('index');
+
     // change the value of the cell according to the turn
     newBoard[index].value = turn;
+
     // check if the new board contains a squence of identical cells
     let sequenceFound = checkSequence(newBoard, gameState);
     if (sequenceFound) {
@@ -40,11 +45,12 @@ function onMove(event) {
     boards.push(newBoard);
     // change turn
     turn = gameState.turn === 'player-x' ? 'player-o' : 'player-x';
-
+    displayMove++;
     // update the state
     gameState = GameState.set({ boards, turn });
 
-    console.log(gameState)
+    return;
+
 }
 
 function onNewGame(event) {
@@ -56,7 +62,18 @@ function onDeleteLast() {
     // delete last move
     // pops out a single item from boards[] and re-render the board
     event.preventDefault();
-    alert("onDeleteLAst")
+    let { boards, displayMove, turn } = GameState.get()
+    if (boards.length > 1) {
+        boards.pop();
+        displayMove = displayMove === 0 ? displayMove : --displayMove;
+        turn = turn === 'player-x' ? 'player-y' : 'player-x';
+
+        let last = boards.length - 1;
+        let gameState = GameState.get();
+        View.renderBoard(boards[last], gameState, onMove)
+
+        GameState.set({ boards, displayMove, turn, gameOngoing: true });
+    }
 }
 
 function onGetRecord(event) {
@@ -81,6 +98,16 @@ function onUploadGame(event) {
     alert('upload game');
 }
 
+function onChangeBoard(event) {
+    event.preventDefault();
+
+    let boardDimension = prompt("Enter board dimension (between 3-10)");
+
+    GameState.set({ boardDimension })
+
+    initGame();
+
+}
 
 
 /* INIT GAME */
@@ -102,7 +129,7 @@ function initGame() {
     }
 
     // Reset game state
-    GameState.set({
+    gameState = GameState.set({
         boards: [initialBoard],
         turn: 'player-x',
         displayMove: 0,

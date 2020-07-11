@@ -1,26 +1,8 @@
 
-// An array of boards to store game. 
-// Each board contains cells.  
-// Each cell can have the value of x, o, n
-let boards = []
+/**GAME STATE */
+import * as Resources from '../Resouces';
 
-// The currently displayed move
-let displayMove = 0;
-
-// The current player
-let turn = 'player-x'
-
-// The status : ongoing, completed
-let gameOngoing = true;
-
-// The dimension of the board
-let boardDimension = 3;
-
-export function setBoards(parmaBoards) {
-  boards = parmaBoards
-}
-
-let gameState = {
+let gameState = { // Default values
   boards: [],
   displayMove: 0,
   turn: 'player-x',
@@ -32,28 +14,11 @@ export function set(objState) {
   Object.keys(objState).forEach(item => {
     gameState[item] = objState[item]
   })
-  return gameState;
+  return Resources.deepCopyObj(gameState);
+
 }
 
 export function get() {
-  return gameState;
+  return Resources.deepCopyObj(gameState);
 }
-
-
-export function setTurn(paramTurn) {
-  turn = paramTurn
-}
-
-export function setGameOngoing(paramOngoing) {
-  gameOngoing = paramOngoing
-}
-
-export function setBoardDimension(paramDimension) {
-  boardDimension = paramDimension;
-}
-
-export function setDisplayMove(paramDisplayMove) {
-  displayMove = paramDisplayMove;
-}
-
 

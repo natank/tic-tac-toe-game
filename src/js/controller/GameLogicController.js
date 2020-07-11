@@ -140,7 +140,8 @@ function checkDiagonals() {
   for (row = 0; row < boardDimension; row++) {
     col = row;
     index = getCellIndex(row, col, boardDimension)
-    let currValue = board[row * (boardDimension + 1)].value;
+
+    let currValue = board[index].value;
     if (!currValue || currValue != prevValue) {
       isSequence = false;
       continue

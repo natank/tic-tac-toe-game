@@ -1,4 +1,7 @@
 .cell {
+  &:hover {
+    cursor: pointer;
+  }
   &::after {
     background-repeat: no-repeat;
     background-size: cover;
@@ -18,7 +21,8 @@
     }
   }
   &--empty {
-    background-color: $bg-empty
+    background-color: $bg-empty;
+    background-image: none;
   }
   &--sequence {
     // background-color: yellow;
@@ -27,11 +31,18 @@
 }
 
 .board {
-  background-color: black;
+  background-color: $primary;
 }
 
 .control-panel {
   a {
     color: $primary;
   }
+  margin-bottom: 3rem;
+}
+
+footer {
+  font-size: .7rem;
+  margin-bottom: 2rem;
+  color: gray
 }

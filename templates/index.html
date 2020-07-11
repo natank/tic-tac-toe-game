@@ -10,15 +10,36 @@
 <body>
   <div class="container">
 
-    <div id="root"></div>
-    <div class="control-panel">
-      <a href='#'><i class="fas fa-plus-square control-panel--new"></i></a>
-      <a href='#'><i class="fas fa-save control-panel--save"></i></a>
-      <a href='#'><i class="fas fa-star control-panel--record"></i></a>
-      <a href='#'><i class="fas fa-minus control-panel--delete-last"></i></a>
-      <a href='#'><i class="fas fa-upload control-panel--upload"></i></a>
-      <a href='#'><i class="fas fa-exchange-alt control-panel--dimension"></i></a>
-    </div>
+    <section id="board"></section>
+    <section class="control-panel">
+      <a href='#' class="tooltip">
+        <i class="fas fa-plus-square  control-panel--new"></i>
+        <span class="tooltiptext">New Game</span>
+      </a>
+      <a href='#' class="tooltip">
+        <i class="fas fa-save  control-panel--save"></i>
+        <span class="tooltiptext">Save Game</span>
+      </a>
+      <a href='#' class="tooltip">
+        <i class="fas fa-star  control-panel--record"></i>
+        <span class="tooltiptext">Best Result</span>
+      </a>
+      <a href='#' class="tooltip">
+        <i class="fas fa-minus  control-panel--delete-last"></i>
+        <span class="tooltiptext">Delete Last Move</span>
+      </a>
+      <a href='#' class="tooltip">
+        <i class="fas fa-upload  control-panel--upload"></i>
+        <span class="tooltiptext">Upload Game</span>
+      </a>
+      <a href='#' class="tooltip">
+        <i class="fas fa-exchange-alt  control-panel--dimension"></i>
+        <span class="tooltiptext">Change Board</span>
+      </a>
+    </section>
+    <footer>
+      Copyright &#169; 2020 Nati Kamusher
+    </footer>
   </div>
 </body>
 

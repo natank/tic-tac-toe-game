@@ -1,11 +1,9 @@
 export function renderTitle() {
   let titleMarkup = `<h1>Let's play Tic Tac Toe</h1>`
-  document.getElementById('root').insertAdjacentHTML('beforeend', titleMarkup);
+  document.getElementById('board').insertAdjacentHTML('beforeend', titleMarkup);
 }
 
 export function renderBoard(arrCells, gameState, onMoveCb) {
-  console.log(`cells = ${JSON.stringify(arrCells)}`)
-
   // first remove existing board element from the DOM (if any)
   let existingBoardElement = document.querySelector('.board');
   if (existingBoardElement) existingBoardElement.parentNode.removeChild(existingBoardElement);
@@ -14,7 +12,7 @@ export function renderBoard(arrCells, gameState, onMoveCb) {
   let { boardDimension, gameOngoing } = gameState
   let boardElement = document.createElement('div');
   boardElement.classList.add('board');
-  boardElement = document.getElementById('root').appendChild(boardElement)
+  boardElement = document.getElementById('board').appendChild(boardElement)
 
   // get the board properties from the DOM. required to render cells within the board 
   // properly
@@ -54,6 +52,8 @@ export function renderBoard(arrCells, gameState, onMoveCb) {
   })
 }
 
-export function renderControlPanel(gameOptions) {
-  document.querySelector('.control-panel--new').addEventListener('click', gameOptions.onNewGame)
+export function renderControlPanel({ onNewGame, onChangeBoard, onDeleteLast }) {
+  document.querySelector('.control-panel--new').addEventListener('click', onNewGame)
+  document.querySelector('.control-panel--dimension').addEventListener('click', onChangeBoard)
+  document.querySelector('.control-panel--delete-last').addEventListener('click', onDeleteLast)
 }
