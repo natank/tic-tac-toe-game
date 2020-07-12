@@ -116,8 +116,8 @@ function onUploadGame(event) {
 function onChangeBoard(event) {
     event.preventDefault();
 
-    let boardDimension = prompt("Enter board dimension (between 3-10)");
-    if (boardDimension && boardDimension > 3 && boardDimension < 10) {
+    let boardDimension = prompt("Enter board dimension (between 3-8)");
+    if (boardDimension && boardDimension >= 3 && boardDimension <= 8) {
         GameState.set({ boardDimension })
     }
 

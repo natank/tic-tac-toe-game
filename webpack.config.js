@@ -60,7 +60,7 @@ module.exports = env => {
     config.output = {
       filename: '[name].[chunkhash].js',
       chunkFilename: '[name].[chunkhash].js',
-      path: path.resolve(__dirname, 'dist'),
+      path: path.resolve(__dirname, 'docs'),
     }
     config.mode = 'production'
     config.optimization = {
