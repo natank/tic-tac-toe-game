@@ -22,7 +22,7 @@ export function renderBoard(gameState, onMoveCb) {
   let boardOffsetWidth = boardElement.offsetWidth * 1.5;
 
   // determine cell dimensions
-  let cellWidth = boardClientWidth / boardDimension;
+  let cellWidth = boardClientWidth / boardDimension + 2 * boardDimension;
   let cellWidthRelative = boardClientWidth / boardDimension / boardOffsetWidth * 100;
 
   // Create cell elements and add them to the DOM
