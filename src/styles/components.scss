@@ -1,3 +1,17 @@
+.container {
+  h1 {
+    font-size: 1.2rem;
+    font-family: sans-serif;
+    @include for-size(tablet-portrait-up){
+      font-size: 1.5rem;
+    }
+  }
+}
+.board {
+  background-color: $primary;
+  padding: var(--gap)
+}
+
 .cell {
   background-repeat: no-repeat;
   background-position: center;
@@ -23,11 +37,6 @@
     // background-color: yellow;
     border: 2px solid yellow;
   }
-}
-
-.board {
-  background-color: $primary;
-  padding: var(--gap)
 }
 
 .control-panel {

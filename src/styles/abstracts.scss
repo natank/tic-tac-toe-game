@@ -1,16 +1,33 @@
-/* SCSS Variables */
+/* SCSS VARIABLES */
 $bg_o: #369ad4;
 $bg_x: #d33754;
 $bg-empty: #a7b3c5;
 $primary: #2e3056;
 $secondary: #fff;
 
-/* CSS Variables */
+/* CSS VARIABLES */
 :root {
-  --main-width: 266px;
+  --main-width: 100%;
   --gap: .5rem;
 }
-/*Utils*/
+
+/* SASS MIXINS*/
+@mixin for-size($size) {
+  @if $size == phone-only {
+    @media (max-width: 599px) { @content; }
+  } @else if $size == tablet-portrait-up {
+    @media (min-width: 600px) { @content; }
+  } @else if $size == tablet-landscape-up {
+    @media (min-width: 900px) { @content; }
+  } @else if $size == desktop-up {
+    @media (min-width: 1200px) { @content; }
+  } @else if $size == big-desktop-up {
+    @media (min-width: 1800px) { @content; }
+  }
+}
+
+
+/*UTILS*/
 
 .tooltip {
   position: relative;

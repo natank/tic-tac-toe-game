@@ -1,16 +1,25 @@
 .container {
-  width: 50%;
+  width: 80%;
   max-width: 440px;
   display: flex;
   flex-direction: column;
   align-items: center;
   margin: auto;
   
+  @include for-size(tablet-portrait-up){
+    width: 50%
+  }
+
+
   
   h1 {
     text-align: center;
     margin-bottom: 2rem;
   }
+}
+
+#board-container {
+  width: var(--main-width)
 }
 
 section {
@@ -23,12 +32,9 @@ section {
 
 
 .board {
-  width: 100%;
   display: grid;
   grid-template-columns: repeat(var(--dimension), 1fr);
   gap: var(--gap);
-  width: var(--main-width);
-  background-color: orange;
 }
 .cell {
   width: var(--main-width) - calc((var(--dimension) - 1) * var(--gap));

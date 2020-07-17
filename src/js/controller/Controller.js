@@ -79,11 +79,11 @@ function onDeleteLast() {
         displayMove = displayMove === 0 ? displayMove : --displayMove;
         turn = turn === 'player-x' ? 'player-y' : 'player-x';
 
-        let last = boards.length - 1;
+        GameState.set({ boards, displayMove, turn, gameOngoing: true });
+
         let gameState = GameState.get();
         View.renderBoard(gameState, onMove)
 
-        GameState.set({ boards, displayMove, turn, gameOngoing: true });
     }
 }
 
