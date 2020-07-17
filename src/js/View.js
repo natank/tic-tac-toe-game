@@ -1,57 +1,68 @@
 export function renderTitle() {
   let titleMarkup = `<h1>Let's play Tic Tac Toe</h1>`
-  document.getElementById('board').insertAdjacentHTML('beforeend', titleMarkup);
+  document.querySelector('.container').insertAdjacentHTML('afterbegin', titleMarkup);
 }
 
 export function renderBoard(gameState, onMoveCb) {
-  let { displayMove, boards } = gameState;
-  let arrCells = boards[displayMove];
+  let boardElement = createNewBoardElement(gameState.boardDimension);
+  addCellsToBoard(gameState, boardElement, onMoveCb)
+}
+// Create a new board element and add it to the DOM
+function createNewBoardElement(boardDimension) {
+
+  let boardElement = document.createElement('div');
+
+  boardElement.classList.add('board');
+
+  boardElement.setAttribute("style", `--dimension: ${boardDimension}`)
+
   // first remove existing board element from the DOM (if any)
   let existingBoardElement = document.querySelector('.board');
   if (existingBoardElement) existingBoardElement.parentNode.removeChild(existingBoardElement);
 
-  // create a new board element
-  let { boardDimension, gameOngoing } = gameState
-  let boardElement = document.createElement('div');
-  boardElement.classList.add('board');
-  boardElement = document.getElementById('board').appendChild(boardElement)
+  // Add the board element to the DOM
+  let boardContainerElement = document.querySelector('#board-container');
+  return boardContainerElement.appendChild(boardElement);
+}
 
-  // get the board properties from the DOM. required to render cells within the board 
-  // properly
-  let boardClientWidth = boardElement.clientWidth;
-  let boardOffsetWidth = boardElement.offsetWidth * 1.5;
 
-  // determine cell dimensions
-  let cellWidth = boardClientWidth / boardDimension + 2 * boardDimension;
-  let cellWidthRelative = boardClientWidth / boardDimension / boardOffsetWidth * 100;
+function addCellsToBoard({ boards, displayMove, gameOngoing }, boardElement, onMoveCb) {
+  let arrCells = boards[displayMove];
+  //Create a DOM element for each cell
 
-  // Create cell elements and add them to the DOM
-  arrCells.forEach((cell, index) => {
-    // 1 - Create a generic board cell
-    let cellElement = document.createElement('a');
-    cellElement.setAttribute(
-      "style",
-      `width: ${cellWidthRelative}%; padding-bottom: ${cellWidthRelative}%; transform: translateY(${boardOffsetWidth / cellWidth * 50}%)`
-    );
-    cellElement.setAttribute("index", index);
-    cellElement.classList.add('cell');
+  arrCells.forEach((cell, currIndex) => {
+    // Create the cell element
+    let cellElement = createCellElement(cell, currIndex, gameOngoing, onMoveCb)
 
-    // 2 - determine specific style for a cell
-    if (cell.value === null) cellElement.classList.add('cell--empty');
-    else if (cell.value === 'player-x') cellElement.classList.add('cell--x');
-    else if (cell.value === 'player-o') cellElement.classList.add('cell--o');
-
-    if (cell.isSequence) cellElement.classList.add('cell--sequence')
-    // 3 - Listen to click event on empty cells only
-
-    if (cell.value === null && gameOngoing) {
-      cellElement.addEventListener('click', onMoveCb)
-    }
-
-    // 4  -  Add the cell to the board
+    // Add the cell to the board
     cellElement = boardElement.appendChild(cellElement);
-
   })
+}
+
+function createCellElement(cell, currIndex, gameOngoing, onMoveCb) {
+  // 1 - create generic cell
+  let cellElement = document.createElement('div');
+  cellElement.innerHTML = `
+      <div class="cell__placeholder"></div>
+      <span class="cell__content"></span>
+  `
+
+  cellElement.setAttribute("index", currIndex);
+  cellElement.classList.add('cell');
+
+  // 2 - determine specific style for a cell
+  if (cell.value === null) cellElement.classList.add('cell--empty');
+  else if (cell.value === 'player-x') cellElement.classList.add('cell--x');
+  else if (cell.value === 'player-o') cellElement.classList.add('cell--o');
+
+  if (cell.isSequence) cellElement.classList.add('cell--sequence')
+
+  // 3 - Listen to click event on empty cells only
+
+  if (cell.value === null && gameOngoing) {
+    cellElement.addEventListener('click', onMoveCb)
+  }
+  return cellElement
 }
 
 export function renderControlPanel({

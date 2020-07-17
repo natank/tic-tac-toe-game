@@ -1,10 +1,15 @@
-/* Variables */
+/* SCSS Variables */
 $bg_o: #369ad4;
 $bg_x: #d33754;
 $bg-empty: #a7b3c5;
 $primary: #2e3056;
 $secondary: #fff;
 
+/* CSS Variables */
+:root {
+  --main-width: 266px;
+  --gap: .5rem;
+}
 /*Utils*/
 
 .tooltip {

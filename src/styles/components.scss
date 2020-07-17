@@ -1,24 +1,19 @@
 .cell {
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 50%;
   &:hover {
     cursor: pointer;
+    
   }
-  &::after {
-    background-repeat: no-repeat;
-    background-size: cover;
-    content:'';
-    color: $secondary;
-  }
+
   &--x {
     background-color: $bg_x;
-    &::after {
-      background-image: url('../images/cross-white.png');
-    }
+    background-image: url('../images/cross-white.png');
   }
   &--o {
     background-color: $bg_o;
-    &::after {
-      background-image: url('../images/circle-white.png');
-    }
+    background-image: url('../images/circle-white.png');
   }
   &--empty {
     background-color: $bg-empty;
@@ -31,7 +26,8 @@
 }
 
 .board {
-  // background-color: $primary;
+  background-color: $primary;
+  padding: var(--gap)
 }
 
 .control-panel {

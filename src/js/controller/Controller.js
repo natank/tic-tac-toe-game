@@ -30,7 +30,7 @@ function onMove(event) {
     let newBoard = Resources.deepCopyObj(boards[boards.length - 1]);
 
     // determine the index of the cell
-    let index = event.target.getAttribute('index');
+    let index = event.target.parentElement.getAttribute('index');
 
     // change the value of the cell according to the turn
     newBoard[index].value = turn;
